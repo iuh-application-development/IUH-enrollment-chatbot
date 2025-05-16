@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Trường Đại học Công nghiệp TP.HCM - Blog IUH</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/fontawesome.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/templatemo-lugx-gaming.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/owl.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/animate.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+    <style>
+      .coze-chat-widget {
+        background: url('static/images/iuh_1.jpg') no-repeat center center !important;
+        background-size: cover !important;
+      }
+      .pagination-btn {
+        border-radius: 8px;
+        padding: 8px 20px;
+        border: 1px solid #667eea;
+        color: #667eea;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        margin: 0 5px;
+      }
+      .pagination-btn:hover {
+        background: #667eea;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+<!-- Navbar mới -->
+<header class="header-area fixed-top py-2">
+  <div class="container d-flex justify-content-between align-items-center">
+    <!-- Logo + Tên -->
+    <a href="{{ url_for('home') }}" class="d-flex align-items-center text-decoration-none">
+      <div class="navbar-logo-wrapper">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="IUH Logo" style="height: 50px;" />
+      </div>
+      <span class="ms-2 fw-bold fs-5 text-light">IUH Enrollment</span>
+    </a>
+
+    <!-- Menu -->
+    <ul class="nav align-items-center">
+      <li class="nav-item">
+        <a href="{{ url_for('home') }}" class="nav-link {% if request.path == '/' %}active{% endif %}">Trang chủ</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url_for('announcements') }}" class="nav-link {% if '/announcements' in request.path %}active{% endif %}">Thông báo</a>
+      </li>
+
+      {% if user and user.is_admin %}
+      <!-- Admin: Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle {% if '/posts' in request.path %}active{% endif %}" 
+           href="#" 
+           id="dropdownBaiViet" 
+           role="button" 
+           data-bs-toggle="dropdown" 
+           aria-expanded="false">
+          Bài viết
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownBaiViet">
+          <li><a class="dropdown-item" href="{{ url_for('home') }}#blog-section">Bài viết</a></li>
+          <li><a class="dropdown-item" href="{{ url_for('posts') }}">Quản lý bài viết</a></li>
+        </ul>
+      </li>
+      {% else %}
+      <!-- User thường -->
+      <li class="nav-item">
+        <a href="{{ url_for('home') }}#blog-section" class="nav-link">Bài viết</a>
+      </li>
+      {% endif %}
+
+      <li class="nav-item">
+        <a href="{{ url_for('product_details') }}" class="nav-link {% if '/product_details' in request.path %}active{% endif %}">Tuyển sinh</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url_for('contact') }}" class="nav-link {% if '/contact' in request.path %}active{% endif %}">Ngành học</a>
+      </li>
+
+      {% if user %}
+        {% if user.is_admin %}
+        <li class="nav-item">
+          <a href="{{ url_for('admin') }}" class="nav-link">Admin</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a href="{{ url_for('logout') }}" class="nav-link text-danger">Đăng xuất</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a href="{{ url_for('login') }}" class="nav-link">Đăng nhập</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('register') }}" class="nav-link">Đăng ký</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</header>
+
+
+    <!-- Main Banner -->
+    <div class="main-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 align-self-center">
+            <div class="caption header-text">
+              {% if user %}
+              <div class="mb-3 text-white">
+                <strong>Xin chào, {{ user.username }}!</strong>
+              </div>
+              {% endif %}
+              <h6>Welcome to Student Recruitment Chatbot</h6>
+              <h2>BEST CHATBOT SITE EVER!</h2>
+              <p>
+                Trường Đại học Công nghiệp TP.HCM là một trong những trường đại
+                học kỹ thuật hàng đầu tại Việt Nam, cung cấp nền giáo dục và
+                nghiên cứu chất lượng cao phục vụ sự phát triển của xã hội.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 offset-lg-2">
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <div class="alert alert-info">
+              {% for message in messages %}
+              <div>{{ message }}</div>
+              {% endfor %}
+            </div>
+            {% endif %} {% endwith %}
+            <div class="right-image">
+              <img src="/static/images/iuh-banner-new.JPG" alt="IUH Banner" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <a href="#">
+              <div class="item">
+                <div class="image">
+                  <img
+                    src="/static/images/icon1.png"
+                    alt="Icon"
+                    style="max-width: 44px"
+                  />
+                </div>
+                <h2>97,7%</h2>
+                <p>Sinh viên có việc làm</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <a href="#">
+              <div class="item">
+                <div class="image">
+                  <img
+                    src="/static/images/icon2.png"
+                    alt="Icon"
+                    style="max-width: 44px"
+                  />
+                </div>
+                <h2>89.000+</h2>
+                <p>Sinh viên & Cựu SV</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <a href="#">
+              <div class="item">
+                <div class="image">
+                  <img
+                    src="/static/images/icon3.png"
+                    alt="Icon"
+                    style="max-width: 44px"
+                  />
+                </div>
+                <h2>1000+</h2>
+                <p>Doanh nghiệp đối tác</p>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <a href="#">
+              <div class="item">
+                <div class="image">
+                  <img
+                    src="/static/images/icon4.png"
+                    alt="Icon"
+                    style="max-width: 44px"
+                  />
+                </div>
+                <h2>03</h2>
+                <p>Cơ sở đào tạo trên toàn quốc</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lịch sử hình thành: nền tối, chữ trắng -->
+    <div
+      class="main-banner py-5"
+      style="
+        background: linear-gradient(135deg, rgb(0, 0, 0), rgb(44, 22, 66));
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+      "
+    >
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h2 style="font-size: 2.5rem; color: #ffffff">
+              Lịch sử hình thành Đại học Công nghiệp TP.HCM
+            </h2>
+            <p style="color: #f2f2f2; font-size: 1.2rem; line-height: 1.8">
+              Tiền thân của Đại học Công nghiệp Thành phố Hồ Chí Minh là Trường
+              Huấn nghiệp Gò Vấp do các tu sĩ dòng Don Bosco thành lập
+              11/11/1956 tại xã Hạnh Thông, Quận Gò Vấp, Tỉnh Gia Định. Năm
+              1968, Trường được đổi tên thành Trường tư thục Trung học Kỹ thuật
+              đệ nhất cấp Don Bosco. Đến ngày 31/01/1970, Trường được cải biên
+              thành Trường tư thục Trung học Kỹ thuật đệ nhị cấp Don Bosco, được
+              gọi tắt là Trường Trung học Kỹ thuật Don Bosco. Sau ngày hòa bình,
+              thống nhất đất nước, quân giải phóng miền Nam tiếp quản và ngày
+              19/12/1975 Trường được bàn giao cho Tổng cục Cơ khí Luyện kim và
+              Điện tử. Năm 1978, Trường được đổi tên thành Trường Công nhân Kỹ
+              thuật IV trực thuộc Bộ Cơ khí và Luyện kim. Đến năm 1994, Trường
+              hợp nhất với Trường Trung học Hóa chất II tại thành phố Biên Hòa
+              thành Trường Trung học Kỹ thuật Công nghiệp IV, trực thuộc Bộ Công
+              Nghiệp. Tháng 3 năm 1999, Trường được nâng cấp thành Trường Cao
+              đẳng Công nghiệp IV và tháng 12 năm 2004, Trường được nâng cấp
+              thành Trường Đại học Công nghiệp thành phố Hồ Chí Minh theo quyết
+              định số 214/2004/QĐ - TTg của Thủ tướng Chính phủ và Trường được
+              Thủ tướng Chính phủ phê duyệt thí điểm đổi mới cơ chế hoạt động
+              giai đoạn 2015-2017 theo quyết định số 902/QĐ-TTg ngày 23 tháng 6
+              năm 2015, bắt đầu thực hiện từ năm học 2015 - 2016. Đại học Công
+              nghiệp thành phố Hồ Chí Minh là một trong những cơ sở giáo dục đại
+              học lớn tại Việt Nam.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Blog Content Section: chỉ hiển thị tiêu đề và hình ảnh của 3 bài viết -->
+    <div class="container bg-light my-4" id="blog-section">
+      <div class="row">
+        <!-- Cột bài viết chính -->
+        <div class="col-md-8">
+          {% for post in posts[:3] %}
+          <article class="bg-dark p-4 shadow-sm rounded mb-4">
+            <h2 class="mb-3" style="font-size: 1.5rem; color: white">
+              <a
+                href="{{ url_for('post_detail', post_id=post.id) }}"
+                class="text-white text-decoration-none"
+              >
+                {{ post.title }}
+              </a>
+            </h2>
+            <div class="text-center my-3">
+              {% if post.image_url %}
+              <img
+                src="{{ post.image_url }}"
+                alt="{{ post.title }}"
+                class="img-fluid rounded"
+              />
+              {% else %}
+              <img
+                src="/static/images/default-post.jpg"
+                alt="{{ post.title }}"
+                class="img-fluid rounded"
+              />
+              {% endif %}
+            </div>
+            <a
+              href="{{ url_for('post_detail', post_id=post.id) }}"
+              class="btn btn-primary"
+              >Xem chi tiết</a
+            >
+          </article>
+          {% endfor %}
+        </div>
+
+        <!-- Sidebar: Các bài viết liên quan (có thể hiển thị 3 bài hoặc tất cả) -->
+        <div class="col-md-4">
+          <div class="bg-dark p-4 shadow-sm rounded">
+            <h5 class="mb-3 text-white">Tất cả các bài viết :</h5>
+            <ul class="list-unstyled text-white">
+              {% for post in posts %}
+              <li>
+                <a
+                  href="{{ url_for('post_detail', post_id=post.id) }}"
+                  class="text-white text-decoration-none"
+                >
+                  {{ post.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="col-lg-12">
+          <p>
+            Copyright © 2024 Trường Đại học Công nghiệp TP.HCM (IUH). Mọi quyền
+            được bảo lưu. Thiết kế bởi <a href="#">Nhóm BenxNamzxje</a>.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/isotope.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/counter.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.3/libs/oversea/index.js"></script>
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.5/libs/oversea/index.js"></script>
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.2.0-beta.5/libs/oversea/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const dropdown = document.querySelector('.nav-item.dropdown');
+      dropdown.addEventListener('mouseover', function () {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        toggle.classList.add('show');
+        menu.classList.add('show');
+      });
+      dropdown.addEventListener('mouseout', function () {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        toggle.classList.remove('show');
+        menu.classList.remove('show');
+      });
+    });
+     </script>
+
+    <div id="chat-container" style="background: url('static/images/iuh_1.jpg') no-repeat center center; background-size: cover;">
+      <!-- Chat widget sẽ được render ở đây -->
+    </div>
+    <div id="chat-helper-hint" class="chat-hint-shake">
+      🤖 Ấn vào để nhận hỗ trợ từ ChatBot
+    </div>
+
+    <script>
+      new CozeWebSDK.WebChatClient({
+        config: {
+          bot_id: '7486412134453559314',
+        },
+        componentProps: {
+          title: 'ChatBot IUH',
+        },
+        auth: {
+          type: 'token',
+          token: 'pat_iawvY4oTFqWoltWlWD2FSJUuCIeHM5DhQbcw7fwCWwDjdzuA5R8X7eD1tFTtd0Qp',
+          onRefreshToken: function () {
+            return 'pat_iawvY4oTFqWoltWlWD2FSJUuCIeHM5DhQbcw7fwCWwDjdzuA5R8X7eD1tFTtd0Qp'
+          }
+        }
+      });
+      
+    </script>
+    <script>
+      setTimeout(() => {
+        const hint = document.getElementById('chat-helper-hint');
+        if (hint) hint.style.display = 'none';
+      }, 12000); // ẩn sau 12 giây
+    </script>
+
+  </body>
+</html>

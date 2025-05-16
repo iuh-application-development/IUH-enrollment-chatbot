@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Thông tin tuyển sinh - IUH</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('{{ url_for('static', filename='images/iuh_1.jpg') }}') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+    .content-section {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      margin-top: 30px;
+    }
+    h2 {
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .accordion-button {
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+<!-- Navbar mới -->
+<header class="header-area fixed-top py-2">
+  <div class="container d-flex justify-content-between align-items-center">
+    <!-- Logo + Tên -->
+    <a href="{{ url_for('home') }}" class="d-flex align-items-center text-decoration-none">
+      <div class="navbar-logo-wrapper">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="IUH Logo" style="height: 50px;" />
+      </div>
+      <span class="ms-2 fw-bold fs-5 text-light">IUH Enrollment</span>
+    </a>
+
+    <!-- Menu -->
+    <ul class="nav align-items-center">
+      <li class="nav-item">
+        <a href="{{ url_for('home') }}" class="nav-link {% if request.path == '/' %}active{% endif %}">Trang chủ</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url_for('announcements') }}" class="nav-link {% if '/announcements' in request.path %}active{% endif %}">Thông báo</a>
+      </li>
+
+      {% if user and user.is_admin %}
+      <!-- Admin: Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle {% if '/posts' in request.path %}active{% endif %}" 
+           href="#" 
+           id="dropdownBaiViet" 
+           role="button" 
+           data-bs-toggle="dropdown" 
+           aria-expanded="false">
+          Bài viết
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownBaiViet">
+          <li><a class="dropdown-item" href="{{ url_for('home') }}#blog-section">Bài viết</a></li>
+          <li><a class="dropdown-item" href="{{ url_for('posts') }}">Quản lý bài viết</a></li>
+        </ul>
+      </li>
+      {% else %}
+      <!-- User thường -->
+      <li class="nav-item">
+        <a href="{{ url_for('home') }}#blog-section" class="nav-link">Bài viết</a>
+      </li>
+      {% endif %}
+
+      <li class="nav-item">
+        <a href="{{ url_for('product_details') }}" class="nav-link {% if '/product_details' in request.path %}active{% endif %}">Tuyển sinh</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url_for('contact') }}" class="nav-link {% if '/contact' in request.path %}active{% endif %}">Ngành học</a>
+      </li>
+
+      {% if user %}
+        {% if user.is_admin %}
+        <li class="nav-item">
+          <a href="{{ url_for('admin') }}" class="nav-link">Admin</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a href="{{ url_for('logout') }}" class="nav-link text-danger">Đăng xuất</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a href="{{ url_for('login') }}" class="nav-link">Đăng nhập</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('register') }}" class="nav-link">Đăng ký</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</header>
+  <!-- Main Content -->
+  <div class="container content-section">
+    <h2>Thông tin tuyển sinh 2025</h2>
+    <p>Chào mừng bạn đến với cổng thông tin tuyển sinh của Trường Đại học Công nghiệp TP.HCM (IUH). Dưới đây là toàn bộ thông tin cần thiết để bạn có thể nắm rõ quy trình tuyển sinh năm nay.</p>
+
+    <div class="accordion" id="tuyensinhAccordion">
+      <!-- Phương thức -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="phuongthuc-heading">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#phuongthuc" aria-expanded="true">
+            1. Phương thức tuyển sinh
+          </button>
+        </h2>
+        <div id="phuongthuc" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            {{ admission_content['phuongthuc']|safe }}
+            {% if user and user.is_admin %}
+              <a href="{{ url_for('edit_admission_section', section='phuongthuc') }}" class="btn btn-outline-primary btn-sm mt-2">Sửa mục này</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Mốc thời gian -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="thoigian-heading">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#thoigian">
+            2. Mốc thời gian quan trọng
+          </button>
+        </h2>
+        <div id="thoigian" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            {{ admission_content['thoigian']|safe }}
+            {% if user and user.is_admin %}
+              <a href="{{ url_for('edit_admission_section', section='thoigian') }}" class="btn btn-outline-primary btn-sm mt-2">Sửa mục này</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Hồ sơ đăng ký -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="hoso-heading">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hoso">
+            3. Hồ sơ đăng ký
+          </button>
+        </h2>
+        <div id="hoso" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            {{ admission_content['hoso']|safe }}
+            {% if user and user.is_admin %}
+              <a href="{{ url_for('edit_admission_section', section='hoso') }}" class="btn btn-outline-primary btn-sm mt-2">Sửa mục này</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Hướng dẫn đăng ký -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="huongdan-heading">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#huongdan">
+            4. Hướng dẫn đăng ký
+          </button>
+        </h2>
+        <div id="huongdan" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            {{ admission_content['huongdan']|safe }}
+            {% if user and user.is_admin %}
+              <a href="{{ url_for('edit_admission_section', section='huongdan') }}" class="btn btn-outline-primary btn-sm mt-2">Sửa mục này</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <a href="{{ url_for('register') }}" class="btn btn-primary">Đăng ký ngay</a>
+      <a href="{{ url_for('static', filename='files/ThongTinTuyenSinh2025.pdf') }}" class="btn btn-outline-secondary ms-2" download>Tải tài liệu chi tiết</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
