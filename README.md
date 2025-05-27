@@ -16,8 +16,8 @@
 
 1. Clone repository về máy:
 ```bash
-git clone [link-repository]
-cd [ten-thu-muc]
+git clone [https://github.com/iuh-application-development/IUH-enrollment-chatbot]
+cd [IUH-enrollment-chatbot]
 ```
 
 2. Tạo và kích hoạt môi trường ảo:
