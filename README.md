@@ -87,11 +87,8 @@ python app.py
 ### 6. Thông Báo
 ![Thông Báo](screenshots/thongbao.png)
 
-### 7. Trang Admin
-![Trang Admin](screenshots/admin.png)
-
-### 8.Bài Viết
+### 7.Bài Viết
 ![Quản Lý Bài Viết](screenshots/baiviet.png)
 
-### 9. Chatbot Tư Vấn
+### 8. Chatbot Tư Vấn
 ![Chatbot Tư Vấn](screenshots/chatbot.png)
