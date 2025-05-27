@@ -94,7 +94,7 @@
         <a href="{{ url_for('product_details') }}" class="nav-link {% if '/product_details' in request.path %}active{% endif %}">Tuyển sinh</a>
       </li>
       <li class="nav-item">
-        <a href="{{ url_for('contact') }}" class="nav-link {% if '/contact' in request.path %}active{% endif %}">Ngành học</a>
+        <a href="{{ url_for('majors') }}" class="nav-link {% if '/majors' in request.path %}active{% endif %}">Ngành học</a>
       </li>
 
       {% if user %}
@@ -135,11 +135,11 @@
           {% endwith %}
           <form method="POST">
             <div class="mb-3">
-              <label for="username" class="form-label">Tên đăng nhập</label>
+              <label for="username" class="form-label" style="color: #333;">Tên đăng nhập</label>
               <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div class="mb-3">
-              <label for="password" class="form-label">Mật khẩu</label>
+              <label for="password" class="form-label" style="color: #333;">Mật khẩu</label>
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <button type="submit" class="btn btn-custom text-white w-100">Đăng nhập</button>
@@ -151,5 +151,34 @@
   </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/isotope.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
+<script src="{{ url_for('static', filename='js/counter.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Dropdown Hover Effect -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelector('.nav-item.dropdown');
+    if (dropdown) {
+      dropdown.addEventListener('mouseover', function () {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        toggle.classList.add('show');
+        menu.classList.add('show');
+      });
+      dropdown.addEventListener('mouseout', function () {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        toggle.classList.remove('show');
+        menu.classList.remove('show');
+      });
+    }
+  });
+</script>
 </body>
 </html>

@@ -5,7 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chỉnh sửa mục tuyển sinh - IUH</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-lugx-gaming.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -80,7 +88,7 @@
         <a href="{{ url_for('product_details') }}" class="nav-link {% if '/product_details' in request.path %}active{% endif %}">Tuyển sinh</a>
       </li>
       <li class="nav-item">
-        <a href="{{ url_for('contact') }}" class="nav-link {% if '/contact' in request.path %}active{% endif %}">Ngành học</a>
+        <a href="{{ url_for('majors') }}" class="nav-link {% if '/majors' in request.path %}active{% endif %}">Ngành học</a>
       </li>
 
       {% if user %}
@@ -105,17 +113,47 @@
 </header>
 <div class="container">
   <div class="form-container">
-    <h3 class="mb-4">Chỉnh sửa mục: {{ section }}</h3>
     <form method="POST">
       <div class="mb-3">
         <label for="content" class="form-label">Nội dung</label>
-        <textarea class="form-control" name="content" id="content" required>{{ content }}</textarea>
+        <textarea class="form-control"
+                  name="content"
+                  id="content"
+                  rows="12"
+                  style="min-height: 300px;">{{ content }}</textarea>
       </div>
-      <button type="submit" class="btn btn-submit">Cập nhật nội dung</button>
-      <a href="{{ url_for('product_details') }}" class="btn btn-secondary ms-2">Quay lại</a>
+      <button type="submit" class="btn btn-primary">Lưu nội dung</button>
     </form>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/isotope.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/owl-carousel.js') }}"></script>
+<script src="{{ url_for('static', filename='js/counter.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Dropdown Hover Effect -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dropdown = document.querySelector('.nav-item.dropdown');
+    if (dropdown) {
+      dropdown.addEventListener('mouseover', function () {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        toggle.classList.add('show');
+        menu.classList.add('show');
+      });
+      dropdown.addEventListener('mouseout', function () {
+        const menu = dropdown.querySelector('.dropdown-menu');
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        toggle.classList.remove('show');
+        menu.classList.remove('show');
+      });
+    }
+  });
+</script>
 </body>
 </html>

@@ -103,7 +103,7 @@
         <a href="{{ url_for('product_details') }}" class="nav-link {% if '/product_details' in request.path %}active{% endif %}">Tuyển sinh</a>
       </li>
       <li class="nav-item">
-        <a href="{{ url_for('contact') }}" class="nav-link {% if '/contact' in request.path %}active{% endif %}">Ngành học</a>
+        <a href="{{ url_for('majors') }}" class="nav-link {% if '/majors' in request.path %}active{% endif %}">Ngành học</a>
       </li>
 
       {% if user %}
@@ -139,12 +139,10 @@
                 <strong>Xin chào, {{ user.username }}!</strong>
               </div>
               {% endif %}
-              <h6>Welcome to Student Recruitment Chatbot</h6>
-              <h2>BEST CHATBOT SITE EVER!</h2>
-              <p>
-                Trường Đại học Công nghiệp TP.HCM là một trong những trường đại
-                học kỹ thuật hàng đầu tại Việt Nam, cung cấp nền giáo dục và
-                nghiên cứu chất lượng cao phục vụ sự phát triển của xã hội.
+              <h6 style="font-size: 1.2rem; font-weight: 500;">Chào bạn đã đến với trang tuyển sinh IUH</h6>
+              <h2 style="font-size: 2.8rem; font-weight: 800;">BEST CHATBOT SITE EVER!</h2>
+              <p style="font-size: 1.15rem; line-height: 1.8;">
+                Trường Đại học Công nghiệp TP.HCM là một trong những trường đại học kỹ thuật hàng đầu tại Việt Nam...
               </p>
             </div>
           </div>
@@ -339,8 +337,7 @@
       <div class="container">
         <div class="col-lg-12">
           <p>
-            Copyright © 2024 Trường Đại học Công nghiệp TP.HCM (IUH). Mọi quyền
-            được bảo lưu. Thiết kế bởi <a href="#">Nhóm BenxNamzxje</a>.
+            Copyright © 2024 Trường Đại học Công nghiệp TP.HCM (IUH)</a>.
           </p>
         </div>
       </div>
@@ -380,23 +377,32 @@
       🤖 Ấn vào để nhận hỗ trợ từ ChatBot
     </div>
 
-    <script>
-      new CozeWebSDK.WebChatClient({
-        config: {
-          bot_id: '7486412134453559314',
-        },
-        componentProps: {
-          title: 'ChatBot IUH',
-        },
-        auth: {
-          type: 'token',
-          token: 'pat_iawvY4oTFqWoltWlWD2FSJUuCIeHM5DhQbcw7fwCWwDjdzuA5R8X7eD1tFTtd0Qp',
-          onRefreshToken: function () {
-            return 'pat_iawvY4oTFqWoltWlWD2FSJUuCIeHM5DhQbcw7fwCWwDjdzuA5R8X7eD1tFTtd0Qp'
+      <script>
+      function initializeCozeWebSDK() {
+        const botId = '7508769694611652615';
+        const token = 'pat_XKaq4EpUPivx92SVjkHhwcyzkJVzN5G3oGJ0FyafcrR2HpP7RY5tKaC7MaheGzAf';
+        
+        new CozeWebSDK.WebChatClient({
+          config: {
+            bot_id: '7508769694611652615',
+          },
+          componentProps: {
+            title: 'Chatbot IUH',
+            icon: 'https://i.postimg.cc/HnsBCPLX/iuh-chat.png',
+            backgroundImage: '/static/images/iuh-f.jpg',
+            backgroundSize: 'cover',
+          },
+          auth: {
+            type: 'token',
+            token: token,
+            onRefreshToken: function () {
+              return token;
+            }
           }
-        }
-      });
-      
+        });
+      }
+
+      window.onload = initializeCozeWebSDK;
     </script>
     <script>
       setTimeout(() => {
