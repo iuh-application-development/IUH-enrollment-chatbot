@@ -65,7 +65,7 @@ python app.py
    - Quản lý người dùng(block, reset password)
 
 ## Video Demo
-[https://drive.google.com/drive/folders/1rLsv05FcsQo9Qz7yuQLOXfNymhfR4A_a]()
+[https://drive.google.com/drive/folders/1rLsv05FcsQo9Qz7yuQLOXfNymhfR4A_a](https://drive.google.com/drive/folders/1rLsv05FcsQo9Qz7yuQLOXfNymhfR4A_a)
 
 ## Screenshots
 
